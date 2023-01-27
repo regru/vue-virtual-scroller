@@ -691,6 +691,10 @@
       emitUpdate: {
         type: Boolean,
         default: false
+      },
+      scrollTarget: {
+        type: [HTMLDocument, HTMLElement],
+        default: null
       }
     }),
     data: function data() {
@@ -1071,6 +1075,11 @@
         };
       },
       getListenerTarget: function getListenerTarget() {
+        // Apply custom listener target
+        if (this.scrollTarget) {
+          return this.scrollTarget;
+        }
+
         var target = scrollparent(this.$el); // Fix global scroll target for Chrome and Safari
 
         if (window.document && (target === window.document.documentElement || target === window.document.body)) {
@@ -2009,7 +2018,7 @@
 
   var plugin$2 = {
     // eslint-disable-next-line no-undef
-    version: "1.0.10",
+    version: "1.1.0",
     install: function install(Vue, options) {
       var finalOptions = Object.assign({}, {
         installComponents: true,
