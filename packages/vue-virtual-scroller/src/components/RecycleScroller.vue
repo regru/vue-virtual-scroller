@@ -249,8 +249,11 @@ export default {
   },
 
   watch: {
-    items () {
-      this.updateVisibleItems(true)
+    items: {
+      deep: true,
+      handler () {
+        this.updateVisibleItems(true)
+      },
     },
 
     pageMode () {

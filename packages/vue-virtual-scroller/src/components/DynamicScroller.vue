@@ -137,8 +137,11 @@ export default {
   },
 
   watch: {
-    items () {
-      this.forceUpdate()
+    items: {
+      deep: true,
+      handler () {
+        this.forceUpdate()
+      },
     },
 
     simpleArray: {
@@ -152,28 +155,31 @@ export default {
       this.forceUpdate(true)
     },
 
-    itemsWithSize (next, prev) {
-      const scrollTop = this.$el.scrollTop
+    itemsWithSize: {
+      deep: true,
+      handler (next, prev) {
+        const scrollTop = this.$el.scrollTop
 
-      // Calculate total diff between prev and next sizes
-      // over current scroll top. Then add it to scrollTop to
-      // avoid jumping the contents that the user is seeing.
-      let prevActiveTop = 0; let activeTop = 0
-      const length = Math.min(next.length, prev.length)
-      for (let i = 0; i < length; i++) {
-        if (prevActiveTop >= scrollTop) {
-          break
+        // Calculate total diff between prev and next sizes
+        // over current scroll top. Then add it to scrollTop to
+        // avoid jumping the contents that the user is seeing.
+        let prevActiveTop = 0; let activeTop = 0
+        const length = Math.min(next.length, prev.length)
+        for (let i = 0; i < length; i++) {
+          if (prevActiveTop >= scrollTop) {
+            break
+          }
+          prevActiveTop += prev[i].size || this.minItemSize
+          activeTop += next[i].size || this.minItemSize
         }
-        prevActiveTop += prev[i].size || this.minItemSize
-        activeTop += next[i].size || this.minItemSize
-      }
-      const offset = activeTop - prevActiveTop
+        const offset = activeTop - prevActiveTop
 
-      if (offset === 0) {
-        return
-      }
+        if (offset === 0) {
+          return
+        }
 
-      this.$el.scrollTop += offset
+        this.$el.scrollTop += offset
+      },
     },
   },
 
