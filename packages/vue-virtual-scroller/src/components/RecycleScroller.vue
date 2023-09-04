@@ -190,6 +190,11 @@ export default {
       type: [String, Object, Array],
       default: '',
     },
+
+    scrollTarget: {
+      type: [Document, HTMLElement],
+      default: null,
+    },
   },
 
   emits: [
@@ -617,8 +622,12 @@ export default {
       }
     },
 
+    getScrollParent () {
+      return this.scrollTarget ?? getScrollParent(this.$el)
+    },
+
     getListenerTarget () {
-      let target = getScrollParent(this.$el)
+      let target = this.getScrollParent(this.$el)
       // Fix global scroll target for Chrome and Safari
       if (window.document && (target === window.document.documentElement || target === window.document.body)) {
         target = window
@@ -712,7 +721,7 @@ export default {
       let scrollDistance
 
       if (this.pageMode) {
-        const viewportEl = getScrollParent(this.$el)
+        const viewportEl = this.getScrollParent(this.$el)
         // HTML doesn't overflow like other elements
         const scrollTop = viewportEl.tagName === 'HTML' ? 0 : viewportEl[direction.scroll]
         const bounds = viewportEl.getBoundingClientRect()
