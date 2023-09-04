@@ -2,9 +2,12 @@
   "name": "vue-virtual-scroller-monorepo",
   "version": "2.0.0-beta.8",
   "private": true,
+  "workspaces":[
+    "packages/*"
+  ],
   "scripts": {
-    "build": "pnpm run -r --filter=!demo build",
-    "release": "pnpm run lint && pnpm run build && sheep release -b master --tag next",
+    "build": "npm run --workspace @regru/vue-virtual-scroller build",
+    "publish": "npm publish --workspace @regru/vue-virtual-scroller --access public",
     "lint": "eslint --ext .js,.vue packages"
   },
   "devDependencies": {
