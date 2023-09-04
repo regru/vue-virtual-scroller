@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/vue-virtual-scroller.svg) ![npm](https://img.shields.io/npm/dm/vue-virtual-scroller.svg)](https://www.npmjs.com/package/vue-virtual-scroller)
 [![vue3](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://vuejs.org/)
 
-[⚠️⚠️⚠️ RegRu Publish ⚠️⚠️⚠️](#publish)
+[⚠️⚠️⚠️ RegRu Publish ⚠️⚠️⚠️](#regru-publish)
 
 [Docs](./packages/vue-virtual-scroller/README.md)
 
